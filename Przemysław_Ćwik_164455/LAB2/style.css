@@ -1,6 +1,4 @@
 body {
-    background-size: cover;
-    background-attachment: fixed;
     font-family: Lato;
     margin: 0;
     padding: 0;
@@ -43,9 +41,15 @@ p {
     overflow: hidden;
 }
 
+.menu a:hover
+{
+    background-color: #78b7f5;
+	color: #010b20;
+}
+
 .menu a 
 {
-    float: left;
+    font-size: 30px;
     display: block;
     color: #78b7f5;
     text-align: center;
