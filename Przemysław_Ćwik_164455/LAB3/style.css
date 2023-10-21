@@ -1,4 +1,5 @@
 body {
+    background-color: #010b20;
     font-family: Lato;
     margin: 0;
     padding: 0;
@@ -26,14 +27,15 @@ h3 {
 span {
     color: #78b7f5;
     text-align: center;
-    margin-left: 150px;
-    font-size: 30px;   
+    font-size: 30px;
 }
 
 p {
     font-size: 30px;
     margin-left: 130px;
+    break-inside: avoid-column;
 }
+
 
 .menu
 {
@@ -91,17 +93,17 @@ u {
 
 .test-block{
 
-    width: 200px;
-    border: 2px solid rgba(71, 236, 30, 0.7);
-    background: rgba(71, 236, 30, 0.7);
-    text-align: center;
+    width: 240px;
+    border: 2px solid #0057b1;
+    background: #0057b1;
+    text-align: left;
     color: #000;
     padding: 20px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    -webkit-touch-callout: none;
+    -webkit-touch-callout: default;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
