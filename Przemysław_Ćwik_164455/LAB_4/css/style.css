@@ -1,0 +1,113 @@
+body {
+    background-color: #010b20;
+    font-family: Lato;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 100px;
+    color: #78b7f5;
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+    color: #78b7f5;
+}
+
+h3 {
+    text-align: center;
+    font-size: 30px;
+    color: #78b7f5;
+}
+
+
+span {
+    color: #78b7f5;
+    text-align: center;
+    font-size: 30px;
+}
+
+p {
+    font-size: 30px;
+    margin-left: 130px;
+    break-inside: avoid-column;
+}
+
+
+.menu
+{
+	background-color: #010b20;
+    overflow: hidden;
+}
+
+.menu a:hover
+{
+    background-color: #78b7f5;
+	color: #010b20;
+}
+
+.menu a 
+{
+    font-size: 30px;
+    display: block;
+    color: #78b7f5;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+table {
+    margin-top: 100px;
+}
+
+.contact-form
+{
+    margin-left: 400px;
+}
+
+.contact-form textarea 
+{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid #78b7f5;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.contact-form input[type="submit"] 
+{
+    background-color: #010b20;
+    color: #78b7f5;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+u {
+    color: red;
+}
+
+.test-block{
+
+    width: 240px;
+    border: 2px solid #0057b1;
+    background: #0057b1;
+    text-align: left;
+    color: #000;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-touch-callout: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+}
+
+
