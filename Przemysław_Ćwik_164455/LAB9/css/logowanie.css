@@ -1,0 +1,61 @@
+form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.logowanie {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.heading {
+    text-align: center;
+    color: #333;
+}
+
+.logowanie input[type="text"],
+.logowanie input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.logowanie input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.logowanie input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.logowanie table {
+    width: 100%;
+}
+
+.logowanie td {
+    padding: 8px;
+}
+
+.logowanie a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.logowanie a:hover {
+    text-decoration: underline;
+}
