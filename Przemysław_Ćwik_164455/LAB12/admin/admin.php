@@ -132,6 +132,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     echo '<a href="wylogowanie.php">Wyloguj</a>';
     echo ListaPodstron();
 } else {
+    echo'<a href="../index.php">Strona Główna</a>';
     echo FormularzLogowania();
 }
 

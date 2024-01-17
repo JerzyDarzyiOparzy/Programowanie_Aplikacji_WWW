@@ -1,119 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu pracuje Admin</title>
-</head>
-<body>
 <?php
-require('./cfg.php');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+function WyslijMailKontakt($odbiorca) {
+	if(empty($_POST['email']) || empty($_POST['title']) || empty($_POST['content'])) {
+		echo '[niewypelnione_pole]';
+		echo PokazKontakt();
+	}
+	
+	else {
+		$mail['sender']			= $_POST['email'];
+		$mail['subject']		= $_POST['title'];
+		$mail['body']			= $_POST['content'];
+		$mail['recipient']		= $odbiorca;
+		
+		$header  = "From: Forumularz kontaktowy <".$mail['sender'].">\n";
+		$header .= "MIME-Version: 1.0\nContent-Type: text/plain; charset-utf-8\nContent-Transfer-Encoding: ";
+		$header .= "X-Sender: <".$mail['sender'].">\n";
+		$header .= "X-Mailer: prapwww mail 1.2\n";
+		$header .= "X-Priority: 3\n";
+		$header .= "Return-Path: <".$mail['sender'].">\n";
+		
+		mail($mail['recipient'],$mail['subject'],$mail['body'],$header);
+		
+		echo '[wiadomosc_wyslana]';
+	}
+}
+
+function PrzypomnijHaslo($odbiorca) {
+	if(empty($_POST['email_recov'])) {
+		echo '[niewypelnione_pole]';
+		echo PokazKontaktHaslo();
+	}
+	
+	else {
+		$mail['sender']			= $_POST['email_recov'];
+		$mail['subject']		= "Password Recovery";
+		$mail['body']			= "Password = Admin";
+		$mail['recipient']		= $odbiorca;
+		
+		$header  = "From: Forumularz kontaktowy <".$mail['sender'].">\n";
+		$header .= "MIME-Version: 1.0\nContent-Type: text/plain; charset-utf-8\nContent-Transfer-Encoding: ";
+		$header .= "X-Sender: <".$mail['sender'].">\n";
+		$header .= "X-Mailer: prapwww mail 1.2\n";
+		$header .= "X-Priority: 3\n";
+		$header .= "Return-Path: <".$mail['sender'].">\n";
+		
+		mail($mail['recipient'],$mail['subject'],$mail['body'],$header);
+		
+		echo '[haslo_wyslane]';
+	}
+}
 
 function PokazKontakt() {
-
-    //odkomentowac jesli chcemy uzyc tego formularza
-
-    $formularz = '<form class="contact-form" method="POST" action="'.$_SERVER['REQUEST_URI'].'">';
-    $formularz .= '<label for="email">Email:</label><br />';
-    $formularz .= '<input class="inp-text" type="email" name="email" id="email" required /><br />';
-    $formularz .= '<label for="temat">Temat:</label><br />';
-    $formularz .= '<input class="inp-text" type="text" name="temat" id="temat" required /><br />';
-    $formularz .= '<label for="tresc">Treść:</label><br />';
-    $formularz .= '<textarea class="content-input" type="tresc" name="tresc" id="tresc" required></textarea><br />';
-    $formularz .= '<input class="inp-btn" type="submit" name="send" value="Wyślij"></form>';
-
-    if (isset($_POST['send'])) {
-        WyslijMailKontakt();
-    } else {
-        echo "Nie udało się wysłać wiadomości";
-        //ponizsze linijki nalezy zakomentowac jesli chcemy uzyc formularza powyzej
-        //sleep(2);
-        //header('Location: ../index.php?idp=5');
-    }
-    return $formularz;
+    $wynik = '
+    <div class="form_email">
+        <div class="form_email">
+            <form method="post" name="LoginForm" enctype="multipart/form-data" action="'.$_SERVER['REQUEST_URI'].'">
+                <table class="form_email">
+                    <tr><td class="log4_t">Email: </td><td><input type="text" name="email" class="form_email" /></td></tr>
+                    <tr><td class="log4_t">Tytuł: </td><td><input type="text" name="title" class="form_email" /></td></tr>
+					<tr><td class="log4_t">Zawartość: </td><td><input type="textarea" name="content" class="form_email" /></td></tr>
+                    <tr><td></td><td><input type="submit" name="x1_submit" class="form_email" value="zaloguj" /></td></tr>
+                </table>
+            </form>
+         </div>
+    </div>
+    ';
+    return $wynik;
 }
 
-//odkomentowac jesli uzywamy formularza powyzej
-
-echo PokazKontakt();
-
-if (isset($_POST['send'])) {
-    echo PokazKontakt();
-} else {
-    echo PrzypomnijHaslo();
+function PokazKontaktHaslo() {
+    $wynik = '
+    <div class="form_passrecov">
+        <div class="form_passrecov">
+            <form method="post" name="LoginForm" enctype="multipart/form-data" action="'.$_SERVER['REQUEST_URI'].'">
+                <table class="form_passrecov">
+                    <tr><td class="log4_t">Email: </td><td><input type="text" name="email_recov" class="form_passrecov" /></td></tr>
+                    <tr><td></td><td><input type="submit" name="x1_submit" class="form_passrecov" value="zaloguj" /></td></tr>
+                </table>
+            </form>
+         </div>
+    </div>
+    ';
+    return $wynik;
 }
 
-function WyslijMailKontakt() {
-    if (empty($_POST['temat']) || empty($_POST['tresc']) || empty($_POST['email'])) {
-        echo '[puste_pole]';
-        header('Location: ../index.php?idp=5');
-    } else {
-        $subject = $_POST['temat'];
-        $body = $_POST['tresc'];
-        $sender = $_POST['email'];
-
-        $mail = new PHPMailer(true);
-        $mail -> isSMTP();
-        $mail -> Host = "smtp.gmail.com";
-        $mail -> SMTPAuth = true;
-        $mail -> SMTPSecure = 'ssl';
-        $mail -> Port = 465;
-
-        $mail -> Username = "pszemtak@gmail.com";
-        $mail -> Password = "xrre gsex wrrb sijs";
-
-        $mail -> setFrom($sender);
-        $mail -> addAddress('pszemtak@gmail.com');
-
-        $mail -> Subject = $subject;
-        $mail -> Body = $body."\n\nSent by: ".$sender;
-
-        $mail -> send();
-        echo "Wysłano wiadomość email\n\n";
-        header('Location: ../index.php?idp=5');
-}
-}
-
-function PrzypomnijHaslo() {
-    global $pass;
-
-    $formularz = '<form method="POST" action="">';
-    $formularz .= '<input class="inp-btn" type="submit" value="Przypomnij haslo" name="przypomnij"/><br />';
-    $formularz .= '</form>';
-
-    if (isset($_POST['przypomnij'])) {
-        $subject = "Przypomnienie Hasla";
-        $body = "Hasło do panelu admina to: ".$pass;
-        $sender = "pszemtak@gmail.com";
-
-        $mail = new PHPMailer(true);
-        $mail -> isSMTP();
-        $mail -> Host = "smtp.gmail.com";
-        $mail -> SMTPAuth = true;
-        $mail -> SMTPSecure = 'ssl';
-        $mail -> Port = 465;
-
-        $mail -> Username = "pszemtak@gmail.com";
-        $mail -> Password = "xrre gsex wrrb sijs";
-
-        $mail -> setFrom($sender);
-        $mail -> addAddress('pszemtak@gmail.com');
-
-        $mail -> Subject = $subject;
-        $mail -> Body = $body;
-
-        $mail -> send();
-
-        echo "Wiadomość wysłano :)\n\n";
-        header('Location: ../index.php');
-    }
-
-    echo $formularz;
-}
-
-?>
-</body>
-</html>
+?>	

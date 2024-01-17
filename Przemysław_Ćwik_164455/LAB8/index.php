@@ -6,13 +6,13 @@
     <meta name="Author" content="Przemysław Ćwik" />
     <title>Europę da się lubić</title>
     
-    <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="../css/menu.css" type="text/css" />
+    <link rel="stylesheet" href="./css/style.css" type="text/css" />
+    <link rel="stylesheet" href="./css/menu.css" type="text/css" />
     
     <link href='http://fonts.googleapis.com/css?family=Lato:400,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     
-    <script src="../js/timedate.js" type="application/javascript"></script>
-    <script src="../js/zmienTlo.js" type="application/javascript"></script>
+    <script src="./js/timedate.js" type="application/javascript"></script>
+    <script src="./js/zmienTlo.js" type="application/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="startclock()">
@@ -25,6 +25,8 @@
             <li><a href="index.php?idp=4">Polska</a></li>
             <li><a href="index.php?idp=5">Kontakt</a></li>
             <li><a href="index.php?idp=6">Filmy</a></li>
+            <li><a href="index.php?idp=-1">Admin</a></li>
+			<li><a href="index.php?idp=-5">Mail</a></li>
             <div style="color: black; font-size: 30px; margin-top: 9px" id="zegarek"></div>
             <div style="color: black; font-size: 30px; margin-top: 9px" id="data"></div>
         </ul>
@@ -35,13 +37,29 @@
 		<?php
 		include('./admin/cfg.php');
 		include('./admin/showpage.php');
+        include('./admin/admin.php');
+        include('./admin/contact.php');
 		
 		if (empty($_GET['idp'])) {
 			$strona_id = 1;
-		} else {
+		} 
+        else if ($_GET['idp'] == -5) {
+		      echo "<h1> Kontakt </h1>";
+		      echo WyslijMailKontakt("164455@student.uwm.edu.pl");
+		      echo "<br></br>";
+		      echo "<a href='?idp=-6'>Odzyskanie hasła</a>";
+	    }
+        else if ($_GET['idp'] == -6) {
+		      echo "<h1> Odzyskanie hasla </h1>";
+		      echo PrzypomnijHaslo("164455@student.uwm.edu.pl");
+		      echo "<br></br>";
+		      echo "<a href='?idp=-5'>Mail</a>";
+	    }
+
+		else {
 			$strona_id = $_GET['idp'];
 		}
-		
+    
 		$tresc_strony = PokazPodstrone($strona_id);
 		
 		if ($tresc_strony === '[nie_znaleziono_strony]') {
@@ -53,7 +71,7 @@
      $nrGrupy = '2';
 
      echo'Przemysław Ćwik'.$nr_indeksu.' grupa '.$nrGrupy.' <br /><br />';
-    ?>
+     ?>
 
 
 </body>

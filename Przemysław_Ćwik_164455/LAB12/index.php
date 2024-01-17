@@ -8,7 +8,7 @@
     
     <link rel="stylesheet" href="./css/style.css" type="text/css" />
     <link rel="stylesheet" href="./css/menu.css" type="text/css" />
-    
+
     <link href='http://fonts.googleapis.com/css?family=Lato:400,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     
     <script src="./js/timedate.js" type="application/javascript"></script>
@@ -23,9 +23,10 @@
             <li><a href="index.php?idp=2">Ciekawostki</a></li>
             <li><a href="index.php?idp=3">Galeria</a></li>
             <li><a href="index.php?idp=4">Polska</a></li>
-            <li><a href="index.php?idp=5">Kontakt</a></li>
+            <li><a href="index.php?idp=-5">Kontakt</a></li>
             <li><a href="index.php?idp=6">Filmy</a></li>
             <li><a href="admin/sklepik.php">Sklepik</a></li>
+            <li><a href="admin/admin.php">Admin</a></li>
             <div style="color: black; font-size: 30px; margin-top: 9px" id="zegarek"></div>
             <div style="color: black; font-size: 30px; margin-top: 9px" id="data"></div>
         </ul>
@@ -33,23 +34,35 @@
         <button onclick="changeBackgroundImage()">Zmień Obrazek</button>
     </div>
 
-		<?php
-		include('./admin/cfg.php');
-		include('./admin/showpage.php');
+<?php
+include('./admin/cfg.php');
+include('./admin/showpage.php');
+include('./admin/contact.php');
 		
-		if (empty($_GET['idp'])) {
-			$strona_id = 1;
-		} else {
-			$strona_id = $_GET['idp'];
-		}
-		
-		$tresc_strony = PokazPodstrone($strona_id);
-		
-		if ($tresc_strony === '[nie_znaleziono_strony]') {
-			echo 'UPS strony nie ma';
-		} else {
-			echo $tresc_strony;
-		}
+if (isset($_GET['idp'])) {
+	if ($_GET['idp'] == -1) {
+		echo LoginAdmin();
+	}
+	else if ($_GET['idp'] == -5) {
+		echo "<h1> Kontakt </h1>";
+		echo WyslijMailKontakt("164455@student.uwm.edu.pl");
+		echo "<br></br>";
+		echo "<a href='?idp=-6'>Odzyskanie hasla</a>";
+	}
+		else if ($_GET['idp'] == -6) {
+		echo "<h1> Odzyskanie hasla </h1>";
+		echo PrzypomnijHaslo("164455@student.uwm.edu.pl");
+		echo "<br></br>";
+		echo "<a href='?idp=-5'>Kontakt</a>";
+	}
+	else {
+		echo PokazPodstrone($_GET['idp']);
+	}
+}
+else {
+	$_GET['idp']=1;
+	echo PokazPodstrone($_GET['idp']);
+}
      $nr_indeksu = '164455';
      $nrGrupy = '2';
 

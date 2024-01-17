@@ -1,7 +1,7 @@
 var backgroundColors = ["#581845", "#C70039", "#FFC300"];
 var currentColorIndex = 0;
 
-var backgroundImages = ["../img/bb1.jpg", "../img/bb2.jpg", "../img/bb3.jpg", "../img/tło.jpg", "../img/tło2.jpg"];
+var backgroundImages = ["./img/bb1.jpg", "./img/bb2.jpg", "./img/bb3.jpg", "./img/tło.jpg", "./img/tło2.jpg"];
 var currentImageIndex = 0;
 
 function changeBackgroundColor() {
