@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -16,14 +12,14 @@ session_start();
     <link href='http://fonts.googleapis.com/css?family=Lato:400,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     
     <script src="../js/timedate.js" type="application/javascript"></script>
-    <script src="../js/zmien_tlo.js" type="text/javascript"></script>
+    <script src="../js/zmienTlo.js" type="application/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="startclock()">
     
     <div class="menu">
         <ul>
-            <li><a href="index.php">Strona Główna</a></li>
+            <li><a href="index.php?idp=1">Strona Główna</a></li>
             <li><a href="index.php?idp=2">Ciekawostki</a></li>
             <li><a href="index.php?idp=3">Galeria</a></li>
             <li><a href="index.php?idp=4">Polska</a></li>
@@ -36,41 +32,28 @@ session_start();
         <button onclick="changeBackgroundImage()">Zmień Obrazek</button>
     </div>
 
-<?php
-include 'cfg.php';
-include 'showpage.php';
-include 'admin/admin.php';
+		<?php
+		include('./admin/cfg.php');
+		include('./admin/showpage.php');
+		
+		if (empty($_GET['idp'])) {
+			$strona_id = 1;
+		} else {
+			$strona_id = $_GET['idp'];
+		}
+		
+		$tresc_strony = PokazPodstrone($strona_id);
+		
+		if ($tresc_strony === '[nie_znaleziono_strony]') {
+			echo 'UPS strony nie ma';
+		} else {
+			echo $tresc_strony;
+		}
+     $nr_indeksu = '164455';
+     $nrGrupy = '2';
 
-
-if (isset($_GET['idp'])) {
-	if ($_GET['idp'] == -1) {
-		echo LoginAdmin();
-	}
-	else if ($_GET['idp'] == -2) {
-		echo CreatePage();
-	}
-	else if ($_GET['idp'] == -3) {
-		echo EditPage();
-	}
-	else if ($_GET['idp'] == -4) {
-		echo DeletePage();
-	}
-	else {
-		echo PokazPodstrone($_GET['idp']);
-	}
-}
-else {
-	$_GET['idp']=1;
-	echo PokazPodstrone($_GET['idp']);
-}
-
-if ($_GET['idp'] == 1) {
-	$_GET["user"] = 'Przemysław Ćwik';
-	$nr_indeksu = '164455';
-	echo '<br /><br />Autor: '.htmlspecialchars($_GET["user"]).'; id '.$nr_indeksu.' <br />';
-}
-
-?>
+     echo'Przemysław Ćwik'.$nr_indeksu.' grupa '.$nrGrupy.' <br /><br />';
+    ?>
 
 
 </body>

@@ -1,31 +1,3 @@
-<?php
-error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-
-$strona = "./html/glowna.html";
-
-if (isset($_GET['idp'])) {
-    switch ($_GET['idp']) {
-        case 'ciekawostki':
-            $strona = "./html/ciekawostki.html";
-            break;
-        case 'galeria':
-            $strona = "./html/galeria.html";
-            break;
-        case 'Polska':
-            $strona = "./html/polska.html";
-            break;        
-        case 'kontakt':
-            $strona = "./html/kontakt.html";
-            break;
-        case 'filmy':
-            $strona = "./html/filmy.html";
-            break;
-
-    }
-}
-
-?>
-
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -40,7 +12,7 @@ if (isset($_GET['idp'])) {
     <link href='http://fonts.googleapis.com/css?family=Lato:400,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     
     <script src="./js/timedate.js" type="application/javascript"></script>
-    <script src="./js/zmien_tlo.js" type="text/javascript"></script>
+    <script src="./js/zmienTlo.js" type="application/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="startclock()">
@@ -59,23 +31,41 @@ if (isset($_GET['idp'])) {
         <button onclick="changeBackgroundColor()">Zmień Kolor</button>
         <button onclick="changeBackgroundImage()">Zmień Obrazek</button>
     </div>
-
-    <div id="content">
-        <?php
-        if (file_exists($strona)) {
-            include($strona);
-        } else {
-            echo "<p>Strona nie istnieje.</p>";
-        }
-        ?>
-    </div>
     <?php
-     $nr_indeksu = '164455';
-     $nrGrupy = '2';
+    error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 
-     echo'Przemysław Ćwik'.$nr_indeksu.' grupa '.$nrGrupy.' <br /><br />';
+    if (empty($_GET['idp'])) {
+        $strona = './html/glowna.html';
+    } 
+    elseif ($_GET['idp'] == 'ciekawostki') {
+        $strona = './html/ciekawostki.html';
+    } 
+    elseif ($_GET['idp'] == 'galeria') {
+        $strona = './html/galeria.html';
+    } 
+    elseif ($_GET['idp'] == 'Polska') {
+        $strona = './html/polska.html';
+    }
+    elseif ($_GET['idp'] == 'kontakt') {
+			$strona = './html/kontakt.html';
+    }
+    elseif ($_GET['idp'] == 'filmy') {
+        $strona = './html/filmy.html';
+    }
+    else {
+        $strona = './html/glowna.html';
+    }
+
+    if (file_exists($strona)) {
+        include($strona);
+    } else {
+        echo 'Strony nie ma';
+    }
+
+    $nr_indeksu ='164455';
+    $nrGrupy = '2';
+
+    echo 'Przemysław Jerzy Ćwik'.$nr_indeksu.' grupa '.$nrGrupy.' <br /><br />';
     ?>
-
-
 </body>
 </html>

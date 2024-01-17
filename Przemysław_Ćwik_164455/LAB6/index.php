@@ -1,33 +1,3 @@
-<?php
-include('./cfg.php');
-
-error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-
-$strona = "./html/glowna.html";
-
-if (isset($_GET['idp'])) {
-    switch ($_GET['idp']) {
-        case 'ciekawostki':
-            $strona = "./html/ciekawostki.html";
-            break;
-        case 'galeria':
-            $strona = "./html/galeria.html";
-            break;
-        case 'Polska':
-            $strona = "./html/polska.html";
-            break;        
-        case 'kontakt':
-            $strona = "./html/kontakt.html";
-            break;
-        case 'filmy':
-            $strona = "./html/filmy.html";
-            break;
-
-    }
-}
-
-?>
-
 <!DOCTYPE HTML>
 <html lang="pl">
 <head>
@@ -36,25 +6,25 @@ if (isset($_GET['idp'])) {
     <meta name="Author" content="Przemysław Ćwik" />
     <title>Europę da się lubić</title>
     
-    <link rel="stylesheet" href="./css/style.css" type="text/css" />
-    <link rel="stylesheet" href="./css/menu.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../css/menu.css" type="text/css" />
     
     <link href='http://fonts.googleapis.com/css?family=Lato:400,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     
-    <script src="./js/timedate.js" type="application/javascript"></script>
-    <script src="./js/zmien_tlo.js" type="text/javascript"></script>
+    <script src="../js/timedate.js" type="application/javascript"></script>
+    <script src="../js/zmienTlo.js" type="application/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="startclock()">
     
     <div class="menu">
         <ul>
-            <li><a href="index.php">Strona Główna</a></li>
-            <li><a href="index.php?idp=ciekawostki">Ciekawostki</a></li>
-            <li><a href="index.php?idp=galeria">Galeria</a></li>
-            <li><a href="index.php?idp=Polska">Polska</a></li>
-            <li><a href="index.php?idp=kontakt">Kontakt</a></li>
-            <li><a href="index.php?idp=filmy">Filmy</a></li>
+            <li><a href="index.php?idp=1">Strona Główna</a></li>
+            <li><a href="index.php?idp=2">Ciekawostki</a></li>
+            <li><a href="index.php?idp=3">Galeria</a></li>
+            <li><a href="index.php?idp=4">Polska</a></li>
+            <li><a href="index.php?idp=5">Kontakt</a></li>
+            <li><a href="index.php?idp=6">Filmy</a></li>
             <div style="color: black; font-size: 30px; margin-top: 9px" id="zegarek"></div>
             <div style="color: black; font-size: 30px; margin-top: 9px" id="data"></div>
         </ul>
@@ -62,16 +32,23 @@ if (isset($_GET['idp'])) {
         <button onclick="changeBackgroundImage()">Zmień Obrazek</button>
     </div>
 
-    <div id="content">
-        <?php
-        if (file_exists($strona)) {
-            include($strona);
-        } else {
-            echo "<p>Strona nie istnieje.</p>";
-        }
-        ?>
-    </div>
-    <?php
+		<?php
+		include('./admin/cfg.php');
+		include('./admin/showpage.php');
+		
+		if (empty($_GET['idp'])) {
+			$strona_id = 1;
+		} else {
+			$strona_id = $_GET['idp'];
+		}
+		
+		$tresc_strony = PokazPodstrone($strona_id);
+		
+		if ($tresc_strony === '[nie_znaleziono_strony]') {
+			echo 'UPS strony nie ma';
+		} else {
+			echo $tresc_strony;
+		}
      $nr_indeksu = '164455';
      $nrGrupy = '2';
 
